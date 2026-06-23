@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Com'è andata? — Laboratorio Teatro Ragazzi · CDG</title>
+<style>
+  :root{
+    --accent:#1f7a6e;
+    --accent-dark:#185f56;
+    --bg:#f3f8f6;
+    --card:#ffffff;
+    --ink:#22302c;
+    --muted:#5e6f69;
+    --line:#d4e6e0;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:28px 18px 80px}
+  header h1{font-size:1.55rem;margin:0 0 6px}
+  header .sub{color:var(--muted);margin:0}
+  .anon{display:inline-block;background:#e1f0eb;color:var(--accent-dark);
+    font-size:.85rem;font-weight:600;padding:5px 12px;border-radius:999px;margin-top:10px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 18px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .group-label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin:0 0 14px}
+  label.q{display:block;font-weight:600;margin:0 0 8px}
+  .hint{color:var(--muted);font-weight:400;font-size:.9rem}
+  textarea,select,input.txt{
+    width:100%;font:inherit;color:inherit;background:#fff;
+    border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;margin-top:4px;
+  }
+  textarea{min-height:88px;resize:vertical}
+  textarea:focus,select:focus,input.txt:focus{outline:none;border-color:var(--accent)}
+  fieldset{border:0;margin:0 0 22px;padding:0}
+  fieldset:last-child{margin-bottom:0}
+  legend{font-weight:600;padding:0;margin:0 0 10px}
+  .scale-row{display:flex;gap:8px}
+  .scale-row label{flex:1;position:relative;margin:0}
+  .scale-row input{position:absolute;opacity:0;inset:0;cursor:pointer}
+  .scale-row span{display:block;text-align:center;padding:13px 0;border:1.5px solid var(--line);
+    border-radius:10px;font-weight:600;font-size:1.2rem}
+  .scale-row input:checked + span{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .scale-row input:focus-visible + span{box-shadow:0 0 0 3px rgba(31,122,110,.25)}
+  .ends{display:flex;justify-content:space-between;color:var(--muted);font-size:.85rem;margin-top:6px}
+  .submit{width:100%;background:var(--accent);color:#fff;border:0;border-radius:12px;
+    padding:16px;font-size:1.1rem;font-weight:700;cursor:pointer;margin-top:6px}
+  .submit:hover{background:var(--accent-dark)}
+  .submit:disabled{opacity:.6;cursor:default}
+  .thanks{display:none;text-align:center;padding:40px 16px}
+  .thanks h2{color:var(--accent);font-size:1.8rem}
+  .err{display:none;background:#fbecec;border:1px solid #e7b9b9;color:#7a2230;
+    padding:12px 14px;border-radius:10px;margin-top:14px}
+  footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Com'è andata? 🎭</h1>
+    <p class="sub">Laboratorio Teatro Ragazzi · Compagnia dei Giovani</p>
+    <span class="anon">🔒 Non c'è il nome: scrivi quello che pensi davvero</span>
+  </header>
+
+  <form id="form">
+
+    <div class="card">
+      <fieldset>
+        <legend>Quanto sei venuto?</legend>
+        <select name="freq">
+          <option value="">—</option>
+          <option>Quasi sempre</option>
+          <option>A volte</option>
+          <option>Poche volte</option>
+        </select>
+      </fieldset>
+      <fieldset style="margin-bottom:0">
+        <legend>Quanti anni hai? <span class="hint">(se vuoi)</span></legend>
+        <input class="txt" type="text" name="eta" inputmode="numeric" placeholder="es. 13">
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <p class="group-label">Com'è andata</p>
+
+      <fieldset>
+        <legend>1. Com'è andata, in generale?</legend>
+        <div class="scale-row">
+          <label><input type="radio" name="q1" value="1"><span>1</span></label>
+          <label><input type="radio" name="q1" value="2"><span>2</span></label>
+          <label><input type="radio" name="q1" value="3"><span>3</span></label>
+          <label><input type="radio" name="q1" value="4"><span>4</span></label>
+          <label><input type="radio" name="q1" value="5"><span>5</span></label>
+        </div>
+        <div class="ends"><span>per niente bene</span><span>benissimo</span></div>
+      </fieldset>
+
+      <fieldset style="margin-bottom:0">
+        <legend>2. Quanto ti sei sentito bene con gli altri del gruppo?</legend>
+        <div class="scale-row">
+          <label><input type="radio" name="q2" value="1"><span>1</span></label>
+          <label><input type="radio" name="q2" value="2"><span>2</span></label>
+          <label><input type="radio" name="q2" value="3"><span>3</span></label>
+          <label><input type="radio" name="q2" value="4"><span>4</span></label>
+          <label><input type="radio" name="q2" value="5"><span>5</span></label>
+        </div>
+        <div class="ends"><span>per niente</span><span>tantissimo</span></div>
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <fieldset>
+        <label class="q" for="q3">3. La cosa più bella che ti è successa al laboratorio.</label>
+        <textarea id="q3" name="q3"></textarea>
+      </fieldset>
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="q4">4. La cosa più difficile, o che ti è piaciuta di meno.</label>
+        <textarea id="q4" name="q4"></textarea>
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <p class="group-label">Cosa hai imparato</p>
+      <fieldset>
+        <label class="q" for="q5">5. Cosa hai imparato a fare che prima non sapevi di saper fare?</label>
+        <textarea id="q5" name="q5"></textarea>
+      </fieldset>
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="q6">6. C'è stato un momento in cui avevi paura o vergogna e poi ce l'hai fatta? Com'è andata?</label>
+        <textarea id="q6" name="q6"></textarea>
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <p class="group-label">Fuori dal laboratorio</p>
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="q7">7. È cambiato qualcosa per te anche fuori da qui — a scuola, a casa, con gli amici? Cosa?</label>
+        <textarea id="q7" name="q7"></textarea>
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <p class="group-label">Cosa cambieresti</p>
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="q8">8. Se decidessi tu, cosa aggiungeresti o cambieresti?</label>
+        <textarea id="q8" name="q8"></textarea>
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <p class="group-label">La tua restituzione</p>
+      <fieldset>
+        <label class="q" for="q9">9. Una parola per dire com'è stato questo laboratorio.</label>
+        <textarea id="q9" name="q9" style="min-height:52px"></textarea>
+      </fieldset>
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="q10">10. Quando torni a casa e ti chiedono "com'era?", cosa rispondi?</label>
+        <textarea id="q10" name="q10"></textarea>
+      </fieldset>
+    </div>
+
+    <button type="submit" class="submit" id="btn">Invia 🚀</button>
+    <div class="err" id="err">Non sono riuscito a inviare. Controlla la connessione e riprova.</div>
+  </form>
+
+  <div class="thanks" id="thanks">
+    <h2>Grazie! 🎉</h2>
+    <p>Le tue risposte sono arrivate. Ci aiutano a fare un laboratorio sempre più bello.</p>
+    <p class="sub">La Compagnia dei Giovani</p>
+  </div>
+
+  <footer>Compagnia dei Giovani · APS-ETS</footer>
+</div>
+
+<script>
+  // ▼▼▼ INCOLLA QUI L'URL DELLA WEB APP (finisce con /exec) ▼▼▼
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzt5aD8JiRrv5X2Ce8GIv15tsCCEVEEFp4VH8OyivmWA-ZcP4GeiY0VjhNRUtlAZpM/exec";
+  // ▲▲▲ vedi ISTRUZIONI.md, punto 5 ▲▲▲
+
+  // ordine fisso: name del campo -> intestazione di colonna nel foglio
+  const CAMPI = [
+    ["freq", "Frequenza"],
+    ["eta",  "Età"],
+    ["q1",   "Generale (1-5)"],
+    ["q2",   "Bene col gruppo (1-5)"],
+    ["q3",   "Cosa più bella"],
+    ["q4",   "Cosa più difficile"],
+    ["q5",   "Cosa ho imparato a fare"],
+    ["q6",   "Paura/vergogna superata"],
+    ["q7",   "Cambiato fuori (scuola/casa/amici)"],
+    ["q8",   "Cosa aggiungerei/cambierei"],
+    ["q9",   "Una parola"],
+    ["q10",  "Cosa rispondo a casa"]
+  ];
+
+  const form = document.getElementById("form");
+  const btn = document.getElementById("btn");
+  const err = document.getElementById("err");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    err.style.display = "none";
+    btn.disabled = true;
+    btn.textContent = "Invio…";
+
+    const fd = new FormData(form);
+    const risposte = {};
+    for (const [name, header] of CAMPI) {
+      risposte[header] = (fd.get(name) || "");
+    }
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ tipo: "ragazzi", risposte: risposte })
+      });
+      form.style.display = "none";
+      document.getElementById("thanks").style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (e2) {
+      err.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = "Invia 🚀";
+    }
+  });
+</script>
+</body>
+</html>
