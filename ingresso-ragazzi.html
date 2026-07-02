@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questionario di ingresso — Teatro Ragazzi · CDG</title>
+<style>
+  :root{
+    --accent:#c8681f;
+    --accent-dark:#a8541a;
+    --bg:#fdf6ee;
+    --card:#ffffff;
+    --ink:#33291f;
+    --muted:#7a6a58;
+    --line:#eddac4;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;}
+  .wrap{max-width:680px;margin:0 auto;padding:28px 18px 80px}
+  header h1{font-size:1.55rem;margin:0 0 6px}
+  header .sub{color:var(--muted);margin:0}
+  .badge{display:inline-block;background:#f6e6d3;color:var(--accent-dark);
+    font-size:.85rem;font-weight:600;padding:5px 12px;border-radius:999px;margin-top:10px}
+  .intro{color:var(--muted);margin:14px 0 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 18px;margin:18px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .group-label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin:0 0 14px}
+  label.q{display:block;font-weight:600;margin:0 0 8px}
+  .req{color:var(--accent)}
+  .hint{color:var(--muted);font-weight:400;font-size:.9rem}
+  textarea,select,input.txt{width:100%;font:inherit;color:inherit;background:#fff;
+    border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;margin-top:4px;}
+  textarea{min-height:84px;resize:vertical}
+  textarea:focus,select:focus,input.txt:focus{outline:none;border-color:var(--accent)}
+  fieldset{border:0;margin:0 0 22px;padding:0}
+  fieldset:last-child{margin-bottom:0}
+  legend{font-weight:600;padding:0;margin:0 0 10px}
+  .scale-row{display:flex;gap:8px}
+  .scale-row label{flex:1;position:relative;margin:0}
+  .scale-row input{position:absolute;opacity:0;inset:0;cursor:pointer}
+  .scale-row span{display:block;text-align:center;padding:13px 0;border:1.5px solid var(--line);
+    border-radius:10px;font-weight:600;font-size:1.15rem}
+  .scale-row input:checked + span{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .scale-row input:focus-visible + span{box-shadow:0 0 0 3px rgba(200,104,31,.25)}
+  .ends{display:flex;justify-content:space-between;color:var(--muted);font-size:.85rem;margin-top:6px}
+  .checks{display:flex;flex-wrap:wrap;gap:9px;margin-top:4px}
+  .checks label{position:relative;margin:0}
+  .checks input{position:absolute;opacity:0;inset:0;cursor:pointer}
+  .checks span{display:block;padding:9px 14px;border:1.5px solid var(--line);border-radius:999px}
+  .checks input:checked + span{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .parent{background:#f6e6d3;border-radius:10px;padding:10px 14px;color:var(--accent-dark);
+    font-size:.9rem;margin-top:12px}
+  .submit{width:100%;background:var(--accent);color:#fff;border:0;border-radius:12px;
+    padding:16px;font-size:1.1rem;font-weight:700;cursor:pointer;margin-top:6px}
+  .submit:hover{background:var(--accent-dark)}
+  .submit:disabled{opacity:.6;cursor:default}
+  .thanks{display:none;text-align:center;padding:40px 16px}
+  .thanks h2{color:var(--accent);font-size:1.8rem}
+  .err{display:none;background:#fbecec;border:1px solid #e7b9b9;color:#7a2230;
+    padding:12px 14px;border-radius:10px;margin-top:14px}
+  footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Questionario di ingresso 🎭</h1>
+    <p class="sub">Laboratorio Teatro Ragazzi · Compagnia dei Giovani</p>
+    <span class="badge">Primo giorno</span>
+    <p class="intro">Non è un compito e non ci sono risposte giuste: ci serve per costruire il laboratorio su di voi.</p>
+    <div class="parent">👪 Se hai meno di 18 anni, la prima parte (nome, età, cose da sapere) puoi compilarla con un genitore.</div>
+  </header>
+
+  <form id="form">
+
+    <div class="card">
+      <p class="group-label">Per conoscerti</p>
+      <fieldset>
+        <label class="q" for="nome">Nome e cognome <span class="req">*</span></label>
+        <input class="txt" type="text" id="nome" name="nome" required>
+      </fieldset>
+      <fieldset>
+        <label class="q" for="eta">Quanti anni hai? <span class="req">*</span></label>
+        <input class="txt" type="number" id="eta" name="eta" min="11" max="17" inputmode="numeric" required>
+      </fieldset>
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="note">Cose che è bene sappiamo <span class="hint">(salute, se ti muovi con qualche difficoltà, DSA come dislessia, allergie o cibo per le pause)</span></label>
+        <textarea id="note" name="note" style="min-height:60px"></textarea>
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <p class="group-label">Da dove parti</p>
+
+      <fieldset>
+        <label class="q" for="esperienza">1. Hai già fatto teatro?</label>
+        <select id="esperienza" name="esperienza">
+          <option value="">—</option>
+          <option>Mai</option>
+          <option>Ho provato</option>
+          <option>Sì, da un po'</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Quando lavori in gruppo, quanto ti senti bene?</legend>
+        <div class="scale-row">
+          <label><input type="radio" name="q_agio" value="1"><span>1</span></label>
+          <label><input type="radio" name="q_agio" value="2"><span>2</span></label>
+          <label><input type="radio" name="q_agio" value="3"><span>3</span></label>
+          <label><input type="radio" name="q_agio" value="4"><span>4</span></label>
+          <label><input type="radio" name="q_agio" value="5"><span>5</span></label>
+        </div>
+        <div class="ends"><span>per niente</span><span>benissimo</span></div>
+      </fieldset>
+
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="ruolo">3. In un gruppo di solito:</label>
+        <select id="ruolo" name="ruolo">
+          <option value="">—</option>
+          <option>Proponi le idee</option>
+          <option>Aiuti quelle degli altri</option>
+          <option>Stai un po' a guardare e poi entri</option>
+        </select>
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <p class="group-label">Cosa vuoi provare</p>
+
+      <fieldset>
+        <legend>4. Cosa ti piacerebbe di più provare a fare?</legend>
+        <div class="checks">
+          <label><input type="checkbox" name="aree" value="Recitare"><span>Recitare</span></label>
+          <label><input type="checkbox" name="aree" value="Usare la voce"><span>Usare la voce</span></label>
+          <label><input type="checkbox" name="aree" value="Muoverti e danzare"><span>Muoverti e danzare</span></label>
+          <label><input type="checkbox" name="aree" value="Improvvisazione"><span>Inventare sul momento</span></label>
+          <label><input type="checkbox" name="aree" value="Stare bene con gli altri"><span>Stare bene con gli altri</span></label>
+          <label><input type="checkbox" name="aree" value="Le emozioni"><span>Le emozioni</span></label>
+          <label><input type="checkbox" name="aree" value="Costruire un personaggio"><span>Costruire un personaggio</span></label>
+          <label><input type="checkbox" name="aree" value="Scenografia e costumi"><span>Scenografia e costumi</span></label>
+        </div>
+        <input class="txt" type="text" name="aree_altro" placeholder="Altro…" style="margin-top:10px">
+      </fieldset>
+
+      <fieldset>
+        <label class="q" for="riesce">5. Alla fine del laboratorio, cosa ti piacerebbe riuscire a fare e dire "adesso ci riesco"?</label>
+        <textarea id="riesce" name="riesce"></textarea>
+      </fieldset>
+
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="supera">6. C'è qualcosa che ti piacerebbe superare? <span class="hint">(la vergogna, la paura di sbagliare, parlare a voce alta…)</span></label>
+        <textarea id="supera" name="supera"></textarea>
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <p class="group-label">Cosa ti fa stare bene</p>
+
+      <fieldset>
+        <legend>7. Quanto ti senti tranquillo all'idea di andare sul palco davanti agli altri?</legend>
+        <div class="scale-row">
+          <label><input type="radio" name="palco" value="1"><span>1</span></label>
+          <label><input type="radio" name="palco" value="2"><span>2</span></label>
+          <label><input type="radio" name="palco" value="3"><span>3</span></label>
+          <label><input type="radio" name="palco" value="4"><span>4</span></label>
+          <label><input type="radio" name="palco" value="5"><span>5</span></label>
+        </div>
+        <div class="ends"><span>per niente</span><span>tantissimo</span></div>
+      </fieldset>
+
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="disagio">8. C'è qualcosa che ti mette a disagio ed è meglio sappiamo? Cosa ti aiuta a sentirti a tuo agio?</label>
+        <textarea id="disagio" name="disagio"></textarea>
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <p class="group-label">Per costruire insieme</p>
+
+      <fieldset>
+        <label class="q" for="storia">9. C'è una storia, un tema o un personaggio che ti piacerebbe fare?</label>
+        <textarea id="storia" name="storia"></textarea>
+      </fieldset>
+
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="safa">10. Sai fare qualcosa che ti va di portare al gruppo? <span class="hint">(uno strumento, ballare, disegnare, cantare…)</span></label>
+        <textarea id="safa" name="safa"></textarea>
+      </fieldset>
+    </div>
+
+    <div class="card">
+      <p class="group-label">Prima di partire</p>
+      <fieldset style="margin-bottom:0">
+        <label class="q" for="altro">11. Vuoi dirci o chiederci qualcosa?</label>
+        <textarea id="altro" name="altro"></textarea>
+      </fieldset>
+    </div>
+
+    <button type="submit" class="submit" id="btn">Invia 🚀</button>
+    <div class="err" id="err">Non sono riuscito a inviare. Controlla la connessione e riprova.</div>
+  </form>
+
+  <div class="thanks" id="thanks">
+    <h2>Grazie! 🎉</h2>
+    <p>Ci vediamo in sala. Le tue risposte ci aiutano a costruire un laboratorio su misura per te.</p>
+    <p class="sub">La Compagnia dei Giovani</p>
+  </div>
+
+  <footer>Compagnia dei Giovani · APS-ETS</footer>
+</div>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzt5aD8JiRrv5X2Ce8GIv15tsCCEVEEFp4VH8OyivmWA-ZcP4GeiY0VjhNRUtlAZpM/exec";
+  const SCHEDA = "Ingresso ragazzi";
+
+  // ordine fisso: name del campo -> intestazione di colonna nel foglio
+  const CAMPI = [
+    ["nome",       "Nome e cognome"],
+    ["eta",        "Età"],
+    ["note",       "Note (salute/DSA/alimentari)"],
+    ["esperienza", "Esperienza teatro"],
+    ["q_agio",     "Agio nel gruppo (1-5)"],
+    ["ruolo",      "Ruolo nel gruppo"],
+    ["aree",       "Cosa vuole provare"],
+    ["aree_altro", "Altro (provare)"],
+    ["riesce",     "Cosa vuole riuscire a fare"],
+    ["supera",     "Cosa vuole superare"],
+    ["palco",      "Tranquillità sul palco (1-5)"],
+    ["disagio",    "Cosa mette a disagio / cosa aiuta"],
+    ["storia",     "Storia/tema/personaggio"],
+    ["safa",       "Cosa sa fare da portare al gruppo"],
+    ["altro",      "Domande/altro"]
+  ];
+
+  const form = document.getElementById("form");
+  const btn = document.getElementById("btn");
+  const err = document.getElementById("err");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    err.style.display = "none";
+    btn.disabled = true;
+    btn.textContent = "Invio…";
+
+    const fd = new FormData(form);
+    const risposte = {};
+    for (const [name, header] of CAMPI) {
+      risposte[header] = (name === "aree")
+        ? fd.getAll("aree").join(", ")
+        : (fd.get(name) || "");
+    }
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ scheda: SCHEDA, risposte: risposte })
+      });
+      form.style.display = "none";
+      document.getElementById("thanks").style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (e2) {
+      err.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = "Invia 🚀";
+    }
+  });
+</script>
+</body>
+</html>
