@@ -258,6 +258,17 @@
         : (fd.get(name) || "");
     }
 
+    // blocca solo il modulo vuoto: serve almeno una risposta alle domande numerate
+    const vuoto = CAMPI.every(([name, header]) =>
+      ["freq", "eta", "primo"].includes(name) || !String(risposte[header]).trim());
+    if (vuoto) {
+      err.textContent = "Rispondi almeno a una domanda prima di inviare.";
+      err.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = "Invia il feedback";
+      return;
+    }
+
     try {
       await fetch(SCRIPT_URL, {
         method: "POST",
@@ -269,6 +280,7 @@
       document.getElementById("thanks").style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (e2) {
+      err.textContent = "Non sono riuscito a inviare. Controlla la connessione e riprova.";
       err.style.display = "block";
       btn.disabled = false;
       btn.textContent = "Invia il feedback";

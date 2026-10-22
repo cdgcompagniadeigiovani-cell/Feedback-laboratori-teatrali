@@ -139,7 +139,7 @@
     <div class="card">
       <p class="group-label">Fuori dal laboratorio</p>
       <fieldset style="margin-bottom:0">
-        <label class="q" for="q7">7. È cambiato qualcosa per te anche fuori da qui — a scuola, a casa, con gli amici? Cosa?</label>
+        <label class="q" for="q7">7. È cambiato qualcosa per te anche fuori da qui — a scuola o al lavoro, a casa, con gli amici? Cosa?</label>
         <textarea id="q7" name="q7"></textarea>
       </fieldset>
     </div>
@@ -214,6 +214,17 @@
       risposte[header] = (fd.get(name) || "");
     }
 
+    // blocca solo il modulo vuoto: serve almeno una risposta alle domande numerate
+    const vuoto = CAMPI.every(([name, header]) =>
+      ["freq", "eta", "primo"].includes(name) || !String(risposte[header]).trim());
+    if (vuoto) {
+      err.textContent = "Rispondi almeno a una domanda prima di inviare.";
+      err.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = "Invia 🚀";
+      return;
+    }
+
     try {
       await fetch(SCRIPT_URL, {
         method: "POST",
@@ -225,6 +236,7 @@
       document.getElementById("thanks").style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (e2) {
+      err.textContent = "Non sono riuscito a inviare. Controlla la connessione e riprova.";
       err.style.display = "block";
       btn.disabled = false;
       btn.textContent = "Invia 🚀";
